@@ -28,6 +28,8 @@ import java.util.Set;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
+import net.fhirfactory.pegacorn.util.FhirUtil;
+
 import org.hl7.fhir.r4.model.Practitioner;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -41,8 +43,7 @@ public class PractitionerSetFactory {
 
     public Set<Practitioner> getPractitionerSet(){
         HashSet<Practitioner> practitionerSet = new HashSet<Practitioner>();
-        FhirContext contextR4 = FhirContext.forR4();
-        IParser parserR4 = contextR4.newJsonParser();
+        IParser parserR4 = FhirUtil.getInstance().getJsonParser();
         for(String currentPractitionerString: getPractitionerJSONStringSet()){
             Practitioner newPractitioner = (Practitioner)parserR4.parseResource(currentPractitionerString);
             practitionerSet.add(newPractitioner);
