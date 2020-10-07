@@ -23,16 +23,17 @@
  */
 package net.fhirfactory.pegacorn.fhir.r4.samples;
 
-import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.parser.IParser;
-import org.hl7.fhir.r4.model.Patient;
-import org.hl7.fhir.r4.model.Practitioner;
-
-import javax.enterprise.context.ApplicationScoped;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.enterprise.context.ApplicationScoped;
+
+import org.hl7.fhir.r4.model.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import ca.uhn.fhir.parser.IParser;
+import net.fhirfactory.pegacorn.util.FhirUtil;
 
 /**
  *
@@ -46,8 +47,7 @@ public class PatientSetFactory {
         LOG.debug(".getPateintSet(): Entry");
         HashSet<Patient> patientSet = new HashSet<Patient>();
         LOG.trace(".getPateintSet(): Initialising Parser(s)");
-        FhirContext contextR4 = FhirContext.forR4();
-        IParser parserR4 = contextR4.newJsonParser();
+        IParser parserR4 = FhirUtil.getInstance().getJsonParser();
         LOG.trace(".getPatientSet(): Parser(s) initialised, now iterating through Patient Strings and creating Patient Resources");
         for(String currentPatientString: getPatientJSONStringSet()){
             Patient newPatient = (Patient)parserR4.parseResource(currentPatientString);
