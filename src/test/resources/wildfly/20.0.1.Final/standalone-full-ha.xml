@@ -119,6 +119,9 @@
             <logger category="net.fhirfactory.pegacorn.deployment">
                 <level name="TRACE"/>
             </logger>
+            <logger category="net.fhirfactory.pegacorn.petasos.topology">
+                <level name="TRACE"/>
+            </logger>
             <logger category="net.fhirfactory.pegacorn.ladon">
                 <level name="INFO"/>
             </logger>

@@ -27,13 +27,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
+import net.fhirfactory.pegacorn.deployment.properties.PegacornCoreSubsystemComponentNames;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateAVConfSvr;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateEcho;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateGrpSvr;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateIris;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateVoIPBridge;
-import net.fhirfactory.pegacorn.deployment.topology.map.standalone.fhirbreak.LDAPServices;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.fhirpit.FHIRPitServices;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.fhirplace.FHIRPlaceServices;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.fhirview.FHIRViewServices;
@@ -59,6 +60,9 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 	
 	private static String SOLUTION_VERSION = "1.0.0";
 	private static String SOLUTION_NAME = "SampleStandaloneSolution";
+
+	@Inject
+	private PegacornCoreSubsystemComponentNames subsystemComponentNames;
 	
 	public StandaloneSampleDeploymentSolution() {
 		super();
@@ -88,23 +92,12 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 
 	@Override
 	protected void specifySubsystems(DeploymentMapNodeElement solutionNode) {
-
+	//	buildCommunicate();
+		buildLadon();
 	}
 
-	private void buildFHIRBreak() {
-		DeploymentMapNodeElement subsystem = new DeploymentMapNodeElement();
-		subsystem.setConcurrencyMode(ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE);
-		subsystem.setElementVersion(this.getSolutionVersion());
-		subsystem.setInstanceName("FHIRBreak");
-		subsystem.setFunctionName("FHIRBreak");
-		subsystem.setResilienceMode(this.getSolutionMode());
-		subsystem.setTopologyElementType(NodeElementTypeEnum.SUBSYSTEM);
-		subsystem.setContainedElements(new ArrayList<DeploymentMapNodeElement>());
-		specifyFHIRBreakExternalisedServices(subsystem);
-		this.getSolution().getContainedElements().add(subsystem);
-	}
 
-	private void buildCommunicate() {
+	protected void buildCommunicate() {
 		DeploymentMapNodeElement subsystem = new DeploymentMapNodeElement();
 		subsystem.setConcurrencyMode(ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE);
 		subsystem.setElementVersion(this.getSolutionVersion());
@@ -117,25 +110,12 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 		this.getSolution().getContainedElements().add(subsystem);
 	}
 
-	private void buildMITaF() {
+	protected void buildLadon() {
 		DeploymentMapNodeElement subsystem = new DeploymentMapNodeElement();
 		subsystem.setConcurrencyMode(ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE);
 		subsystem.setElementVersion(this.getSolutionVersion());
-		subsystem.setInstanceName("MITaF");
-		subsystem.setFunctionName("MITaF");
-		subsystem.setResilienceMode(this.getSolutionMode());
-		subsystem.setTopologyElementType(NodeElementTypeEnum.SUBSYSTEM);
-		subsystem.setContainedElements(new ArrayList<DeploymentMapNodeElement>());
-		specifyMITaFExternalisedServices(subsystem);
-		this.getSolution().getContainedElements().add(subsystem);
-	}
-
-	private void buildLadon() {
-		DeploymentMapNodeElement subsystem = new DeploymentMapNodeElement();
-		subsystem.setConcurrencyMode(ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE);
-		subsystem.setElementVersion(this.getSolutionVersion());
-		subsystem.setInstanceName("Ladon");
-		subsystem.setFunctionName("Ladon");
+		subsystem.setInstanceName(subsystemComponentNames.getLadonSubsystemDefault());
+		subsystem.setFunctionName(subsystemComponentNames.getLadonSubsystemDefault());
 		subsystem.setResilienceMode(this.getSolutionMode());
 		subsystem.setTopologyElementType(NodeElementTypeEnum.SUBSYSTEM);
 		subsystem.setContainedElements(new ArrayList<DeploymentMapNodeElement>());
@@ -143,6 +123,7 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 		this.getSolution().getContainedElements().add(subsystem);
 	}
 
+	/*
 	private void buildHestia() {
 		DeploymentMapNodeElement subsystem = new DeploymentMapNodeElement();
 		subsystem.setConcurrencyMode(ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE);
@@ -195,7 +176,10 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 		this.getSolution().getContainedElements().add(subsystem);
 	}
 
+	 */
+
 	protected void specifyCommunicateExternalisedServices(DeploymentMapNodeElement subsystem) {
+		/*
 		CommunicateAVConfSvr communicateConfSvrExternalisedService = new CommunicateAVConfSvr();
 		communicateConfSvrExternalisedService.buildExternalisedServiceNode(subsystem);
 		this.getConnectedSubsystems().addAll(communicateConfSvrExternalisedService.buildConnectedSystemSet());
@@ -206,15 +190,20 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 		
 		CommunicateGrpSvr communicateGrpSvrExternalisedService = new CommunicateGrpSvr();
 		communicateGrpSvrExternalisedService.buildExternalisedServiceNode(subsystem);
-		this.getConnectedSubsystems().addAll(communicateGrpSvrExternalisedService.buildConnectedSystemSet());			
-		
+		this.getConnectedSubsystems().addAll(communicateGrpSvrExternalisedService.buildConnectedSystemSet());
+
+		 */
+
 		CommunicateIris communicateIrisExternalisedServce = new CommunicateIris();
 		communicateIrisExternalisedServce.buildExternalisedServiceNode(subsystem);
-		this.getConnectedSubsystems().addAll(communicateIrisExternalisedServce.buildConnectedSystemSet());			
+		this.getConnectedSubsystems().addAll(communicateIrisExternalisedServce.buildConnectedSystemSet());
+		/*
 		
 		CommunicateVoIPBridge communicateVoIPBridgeExternalisedService = new CommunicateVoIPBridge();
 		communicateVoIPBridgeExternalisedService.buildExternalisedServiceNode(subsystem);
-		this.getConnectedSubsystems().addAll(communicateVoIPBridgeExternalisedService.buildConnectedSystemSet());	
+		this.getConnectedSubsystems().addAll(communicateVoIPBridgeExternalisedService.buildConnectedSystemSet());
+
+		 */
 		
 	}
 
@@ -257,60 +246,48 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 		this.getConnectedSubsystems().addAll(hestiaDAMExternalServices.buildConnectedSystemSet());	
 	}
 
-	protected void specifyFHIRBreakExternalisedServices(DeploymentMapNodeElement subsystem) {
-
-		LDAPServices fhirbreakLDAPExternalisedServices = new LDAPServices();
-		fhirbreakLDAPExternalisedServices.buildExternalisedServiceNode(subsystem);
-		this.getConnectedSubsystems().addAll(fhirbreakLDAPExternalisedServices.buildConnectedSystemSet());		
-		
-	}
-
 	@Override
 	protected Set<DeploymentMapNodeElement> specifyConnectedSystems() {
 		
 		HashSet<DeploymentMapNodeElement> connectedSystemSet = new HashSet<DeploymentMapNodeElement>();
 		
 		// Communicate Connected Systems
-		CommunicateVoIPBridge communicateVoIPBridgeExternalisedService = new CommunicateVoIPBridge();
+		//CommunicateVoIPBridge communicateVoIPBridgeExternalisedService = new CommunicateVoIPBridge();
 		CommunicateIris communicateIrisExternalisedServce = new CommunicateIris();
-		CommunicateGrpSvr communicateGrpSvrExternalisedService = new CommunicateGrpSvr();
-		CommunicateEcho communicateEchoExternalisedService = new CommunicateEcho();
-		CommunicateAVConfSvr communicateConfSvrExternalisedService = new CommunicateAVConfSvr();
-		connectedSystemSet.addAll(communicateVoIPBridgeExternalisedService.buildConnectedSystemSet());
+		//CommunicateGrpSvr communicateGrpSvrExternalisedService = new CommunicateGrpSvr();
+		//CommunicateEcho communicateEchoExternalisedService = new CommunicateEcho();
+		//CommunicateAVConfSvr communicateConfSvrExternalisedService = new CommunicateAVConfSvr();
+		//connectedSystemSet.addAll(communicateVoIPBridgeExternalisedService.buildConnectedSystemSet());
 		connectedSystemSet.addAll(communicateIrisExternalisedServce.buildConnectedSystemSet());
-		connectedSystemSet.addAll(communicateGrpSvrExternalisedService.buildConnectedSystemSet());
-		connectedSystemSet.addAll(communicateEchoExternalisedService.buildConnectedSystemSet());
-		connectedSystemSet.addAll(communicateConfSvrExternalisedService.buildConnectedSystemSet());
+		//connectedSystemSet.addAll(communicateGrpSvrExternalisedService.buildConnectedSystemSet());
+		//connectedSystemSet.addAll(communicateEchoExternalisedService.buildConnectedSystemSet());
+		//connectedSystemSet.addAll(communicateConfSvrExternalisedService.buildConnectedSystemSet());
 		
 		
 		// MITaF Connected Systems
 
 
 		// FHIRPlace Connected Systems
-		FHIRPlaceServices fhirplaceExternalisedServices = new FHIRPlaceServices();
-		connectedSystemSet.addAll(fhirplaceExternalisedServices.buildConnectedSystemSet());
+		//FHIRPlaceServices fhirplaceExternalisedServices = new FHIRPlaceServices();
+		//connectedSystemSet.addAll(fhirplaceExternalisedServices.buildConnectedSystemSet());
 		
 		// FHIRPit Connected Systems
-		FHIRPitServices fhirpitExternalisedServices = new FHIRPitServices();
-		connectedSystemSet.addAll(fhirpitExternalisedServices.buildConnectedSystemSet());
+		//FHIRPitServices fhirpitExternalisedServices = new FHIRPitServices();
+		//connectedSystemSet.addAll(fhirpitExternalisedServices.buildConnectedSystemSet());
 		
 		// FHIRView Connected Systems
-		FHIRViewServices fhirviewExternalisedServices = new FHIRViewServices();
-		connectedSystemSet.addAll(fhirviewExternalisedServices.buildConnectedSystemSet());
+		//FHIRViewServices fhirviewExternalisedServices = new FHIRViewServices();
+		//connectedSystemSet.addAll(fhirviewExternalisedServices.buildConnectedSystemSet());
 
 		//Ladon Connected Systems
 		LadonServices ladonExternalisedServices = new LadonServices();
 		connectedSystemSet.addAll(ladonExternalisedServices.buildConnectedSystemSet());
-		
+
 		// Hestia Connected Systems
-		HestiaDAM hestiaDAMExternalServices = new HestiaDAM();
-		HestiaAudit hestiaAuditExternalisedServices = new HestiaAudit();
-		connectedSystemSet.addAll(hestiaAuditExternalisedServices.buildConnectedSystemSet());
-		connectedSystemSet.addAll(hestiaDAMExternalServices.buildConnectedSystemSet());
-		
-		// FHIRBreak Connected Systems
-		LDAPServices fhirbreakLDAPExternalisedServices = new LDAPServices();
-		connectedSystemSet.addAll(fhirbreakLDAPExternalisedServices.buildConnectedSystemSet());
+		//HestiaDAM hestiaDAMExternalServices = new HestiaDAM();
+		//HestiaAudit hestiaAuditExternalisedServices = new HestiaAudit();
+		//connectedSystemSet.addAll(hestiaAuditExternalisedServices.buildConnectedSystemSet());
+		//connectedSystemSet.addAll(hestiaDAMExternalServices.buildConnectedSystemSet());
 
 		return(connectedSystemSet);
 	}

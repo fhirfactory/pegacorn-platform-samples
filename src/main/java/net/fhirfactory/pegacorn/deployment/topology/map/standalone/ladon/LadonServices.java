@@ -39,28 +39,26 @@ import net.fhirfactory.pegacorn.deployment.topology.map.model.DeploymentMapNodeE
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
-
 /**
  *
  * @author Mark A. Hunter
  */
+
 public class LadonServices extends LadonExternalisedServices {
 
     private static final Logger LOG = LoggerFactory.getLogger(LadonServices.class);
 
     private static final String DEFAULT_VERSION = "1.0.0";
 
-    @Inject
-    private PegacornCoreSubsystemComponentNames subsystemComponentNames;
+    PegacornCoreSubsystemComponentNames subsystemComponentNames = new PegacornCoreSubsystemComponentNames();
 
     @Override
     public void buildSubsystemNode(DeploymentMapNodeElement solutionNode) {
         DeploymentMapNodeElement ladonNode = new DeploymentMapNodeElement();
         ladonNode.setConcurrencyMode(ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE);
         ladonNode.setElementVersion("0.0.1");
-        ladonNode.setInstanceName("Ladon");
-        ladonNode.setFunctionName("Ladon");
+        ladonNode.setInstanceName(subsystemComponentNames.getLadonSubsystemDefault());
+        ladonNode.setFunctionName(subsystemComponentNames.getLadonSubsystemDefault());
         ladonNode.setResilienceMode(ResilienceModeEnum.RESILIENCE_MODE_STANDALONE);
         ladonNode.setTopologyElementType(NodeElementTypeEnum.EXTERNALISED_SERVICE);
         solutionNode.getContainedElements().add(ladonNode);
@@ -112,7 +110,7 @@ public class LadonServices extends LadonExternalisedServices {
         DeploymentMapEndpointElement endpointPetasosTopologySync = new DeploymentMapEndpointElement();
         endpointPetasosTopologySync.setEndpointInstanceID("PetasosTopologySyncSvr");
         endpointPetasosTopologySync.setEndpointFunctionID("PetasosTopologySyncSvr");
-        endpointPetasosTopologySync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointPetasosTopologySync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointPetasosTopologySync.setExternalDNSEntry("___");
         endpointPetasosTopologySync.setExternalPortNumber("10810");
         endpointPetasosTopologySync.setInternalPortNumber("10810");
@@ -124,7 +122,7 @@ public class LadonServices extends LadonExternalisedServices {
         DeploymentMapEndpointElement endpointPetasosParcelSync = new DeploymentMapEndpointElement();
         endpointPetasosParcelSync.setEndpointInstanceID("PetasosTopologySyncSvr");
         endpointPetasosParcelSync.setEndpointFunctionID("PetasosTopologySyncSvr");
-        endpointPetasosParcelSync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointPetasosParcelSync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointPetasosParcelSync.setExternalDNSEntry("___");
         endpointPetasosParcelSync.setExternalPortNumber("10811");
         endpointPetasosParcelSync.setInternalPortNumber("10811");
@@ -136,7 +134,7 @@ public class LadonServices extends LadonExternalisedServices {
         DeploymentMapEndpointElement endpointPetasosHeartbeatSync = new DeploymentMapEndpointElement();
         endpointPetasosHeartbeatSync.setEndpointInstanceID("PetasosTopologySyncSvr");
         endpointPetasosHeartbeatSync.setEndpointFunctionID("PetasosTopologySyncSvr");
-        endpointPetasosHeartbeatSync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointPetasosHeartbeatSync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointPetasosHeartbeatSync.setExternalDNSEntry("___");
         endpointPetasosHeartbeatSync.setExternalPortNumber("10812");
         endpointPetasosHeartbeatSync.setInternalPortNumber("10812");
@@ -175,9 +173,9 @@ public class LadonServices extends LadonExternalisedServices {
         nodeNode.getContainedElements().add(nodeLadonProcessingPlant);
 
         DeploymentMapEndpointElement endpointEndEdgeAnswer = new DeploymentMapEndpointElement();
-        endpointEndEdgeAnswer.setEndpointInstanceID("Edge-Answer");
-        endpointEndEdgeAnswer.setEndpointFunctionID("Edge-Answer");
-        endpointEndEdgeAnswer.setEndpointType(EndpointElementTypeEnum.API);
+        endpointEndEdgeAnswer.setEndpointInstanceID(subsystemComponentNames.getEdgeAnswerEndpointName());
+        endpointEndEdgeAnswer.setEndpointFunctionID(subsystemComponentNames.getEdgeAnswerEndpointName());
+        endpointEndEdgeAnswer.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointEndEdgeAnswer.setExternalDNSEntry("___");
         endpointEndEdgeAnswer.setExternalPortNumber("8080");
         endpointEndEdgeAnswer.setIsServer(true);
@@ -187,9 +185,9 @@ public class LadonServices extends LadonExternalisedServices {
 
         LOG.debug(".createLadonServiceEndpoints(): Entry");
         DeploymentMapEndpointElement endpointPetasosTopologySync = new DeploymentMapEndpointElement();
-        endpointPetasosTopologySync.setEndpointInstanceID("PetasosTopologySyncSvr");
-        endpointPetasosTopologySync.setEndpointFunctionID("PetasosTopologySyncSvr");
-        endpointPetasosTopologySync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointPetasosTopologySync.setEndpointInstanceID(subsystemComponentNames.getPetasosWatchdogFinalisationService());
+        endpointPetasosTopologySync.setEndpointFunctionID(subsystemComponentNames.getPetasosWatchdogFinalisationService());
+        endpointPetasosTopologySync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointPetasosTopologySync.setExternalDNSEntry("___");
         endpointPetasosTopologySync.setExternalPortNumber("10810");
         endpointPetasosTopologySync.setInternalPortNumber("10810");
@@ -199,9 +197,9 @@ public class LadonServices extends LadonExternalisedServices {
         nodeLadonProcessingPlant.getEndpoints().add(endpointPetasosTopologySync);
 
         DeploymentMapEndpointElement endpointPetasosParcelSync = new DeploymentMapEndpointElement();
-        endpointPetasosParcelSync.setEndpointInstanceID("PetasosTopologySyncSvr");
-        endpointPetasosParcelSync.setEndpointFunctionID("PetasosTopologySyncSvr");
-        endpointPetasosParcelSync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointPetasosParcelSync.setEndpointInstanceID(subsystemComponentNames.getPetasosWatchdogHeartbeatService());
+        endpointPetasosParcelSync.setEndpointFunctionID(subsystemComponentNames.getPetasosWatchdogHeartbeatService());
+        endpointPetasosParcelSync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointPetasosParcelSync.setExternalDNSEntry("___");
         endpointPetasosParcelSync.setExternalPortNumber("10811");
         endpointPetasosParcelSync.setInternalPortNumber("10811");
@@ -210,20 +208,27 @@ public class LadonServices extends LadonExternalisedServices {
         endpointPetasosParcelSync.setRequiresEncryption(false);
         nodeLadonProcessingPlant.getEndpoints().add(endpointPetasosParcelSync);
 
-        DeploymentMapEndpointElement endpointPetasosHeartbeatSync = new DeploymentMapEndpointElement();
-        endpointPetasosHeartbeatSync.setEndpointInstanceID("PetasosTopologySyncSvr");
-        endpointPetasosHeartbeatSync.setEndpointFunctionID("PetasosTopologySyncSvr");
-        endpointPetasosHeartbeatSync.setEndpointType(EndpointElementTypeEnum.API);
-        endpointPetasosHeartbeatSync.setExternalDNSEntry("___");
-        endpointPetasosHeartbeatSync.setExternalPortNumber("10812");
-        endpointPetasosHeartbeatSync.setInternalPortNumber("10812");
-        endpointPetasosHeartbeatSync.setIsServer(true);
-        endpointPetasosHeartbeatSync.setVersion(LADON_DEFAULT_VERSION);
-        endpointPetasosHeartbeatSync.setRequiresEncryption(true);
-        nodeLadonProcessingPlant.getEndpoints().add(endpointPetasosHeartbeatSync);
+        DeploymentMapEndpointElement endFromIrisFHIRAll = new DeploymentMapEndpointElement();
+        endFromIrisFHIRAll.setEndpointInstanceID(subsystemComponentNames.getLadonEdgeReceiveFhirAllFromIris());
+        endFromIrisFHIRAll.setEndpointFunctionID(subsystemComponentNames.getLadonEdgeReceiveFhirAllFromIris());
+        endFromIrisFHIRAll.setEndpointType(EndpointElementTypeEnum.API_SERVER);
+        endFromIrisFHIRAll.setExternalDNSEntry("___");
+        endFromIrisFHIRAll.setExternalPortNumber("12500");
+        endFromIrisFHIRAll.setInternalPortNumber("12500");
+        endFromIrisFHIRAll.setIsServer(true);
+        endFromIrisFHIRAll.setVersion(LADON_DEFAULT_VERSION);
+        endFromIrisFHIRAll.setRequiresEncryption(false);
+        nodeLadonProcessingPlant.getEndpoints().add(endFromIrisFHIRAll);
 
-        EdgeMessagingPortsCreator messagingPorts = new EdgeMessagingPortsCreator();
-        messagingPorts.addEdgeReceiverPorts(nodeLadonProcessingPlant, 10250, LADON_DEFAULT_VERSION);
+        DeploymentMapEndpointElement endpointToIrisFHIRAll = new DeploymentMapEndpointElement();
+        endpointToIrisFHIRAll.setEndpointInstanceID(subsystemComponentNames.getLadonEdgeForwardFhirAllToIris());
+        endpointToIrisFHIRAll.setEndpointFunctionID(subsystemComponentNames.getLadonEdgeForwardFhirAllToIris());
+        endpointToIrisFHIRAll.setEndpointType(EndpointElementTypeEnum.API_SERVER);
+        endpointToIrisFHIRAll.setExternalDNSEntry("___");
+        endpointToIrisFHIRAll.setIsServer(false);
+        endpointToIrisFHIRAll.setVersion(LADON_DEFAULT_VERSION);
+        endpointToIrisFHIRAll.setRequiresEncryption(false);
+        nodeLadonProcessingPlant.getEndpoints().add(endpointToIrisFHIRAll);
     }
 
     @Override

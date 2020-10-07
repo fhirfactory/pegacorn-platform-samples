@@ -10,7 +10,7 @@
 
   <logger name="net.fhirfactory.pegacorn.deployment" level="TRACE"/>
   <logger name="net.fhirfactory.pegacorn.petasos.model" level="INFO"/>
-  <logger name="net.fhirfactory.pegacorn.petasos.topology" level="INFO"/>
+  <logger name="net.fhirfactory.pegacorn.petasos.topology" level="TRACE"/>
   <logger name="net.fhirfactory.pegacorn.petasos.test.sampleuows" level="INFO"/>
 
   <root level="TRACE">

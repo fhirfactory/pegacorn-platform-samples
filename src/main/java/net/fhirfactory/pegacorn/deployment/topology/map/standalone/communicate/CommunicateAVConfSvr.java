@@ -43,7 +43,7 @@ public class CommunicateAVConfSvr extends CommunicatePegacornSubsystem {
     public void buildSubsystemNode(DeploymentMapNodeElement solutionNode) {
         DeploymentMapNodeElement communicateAVConfSvr = new DeploymentMapNodeElement();
         communicateAVConfSvr.setConcurrencyMode(ConcurrencyModeEnum.CONCURRENCY_MODE_STANDALONE);
-        communicateAVConfSvr.setElementVersion("0.0.1");
+        communicateAVConfSvr.setElementVersion("1.0.0");
         communicateAVConfSvr.setInstanceName("Communicate-AVConfSvr");
         communicateAVConfSvr.setFunctionName("Communicate-AVConfSvr");
         communicateAVConfSvr.setResilienceMode(ResilienceModeEnum.RESILIENCE_MODE_STANDALONE);

@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.fhirfactory.pegacorn.deployment.topology.map.archetypes.CommunicatePegacornSubsystem;
-import net.fhirfactory.pegacorn.deployment.topology.map.archetypes.common.EdgeMessagingPortsCreator;
 import net.fhirfactory.pegacorn.deployment.topology.map.model.DeploymentMapEndpointElement;
 import net.fhirfactory.pegacorn.deployment.topology.map.model.DeploymentMapNodeElement;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
@@ -36,16 +35,12 @@ import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum
 import net.fhirfactory.pegacorn.petasos.model.topology.EndpointElementTypeEnum;
 import net.fhirfactory.pegacorn.petasos.model.topology.NodeElementTypeEnum;
 
-import javax.inject.Inject;
-
 /**
  *
  * @author Mark A. Hunter
  */
-public class CommunicateIris extends CommunicatePegacornSubsystem {
 
-    @Inject
-    EdgeMessagingPortsCreator edgeMessagingPorts;
+public class CommunicateIris extends CommunicatePegacornSubsystem {
 
     @Override
     public void buildSubsystemNode(DeploymentMapNodeElement solutionNode) {
@@ -120,7 +115,7 @@ public class CommunicateIris extends CommunicatePegacornSubsystem {
         DeploymentMapEndpointElement endpointIrisPetasosTopologySync = new DeploymentMapEndpointElement();
         endpointIrisPetasosTopologySync.setEndpointInstanceID("PetasosTopologySyncSvr");
         endpointIrisPetasosTopologySync.setEndpointFunctionID("PetasosTopologySyncSvr");
-        endpointIrisPetasosTopologySync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointIrisPetasosTopologySync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointIrisPetasosTopologySync.setExternalDNSEntry("petasos-gen0-iris");
         endpointIrisPetasosTopologySync.setExternalPortNumber("10870");
         endpointIrisPetasosTopologySync.setInternalPortNumber("10870");
@@ -131,7 +126,7 @@ public class CommunicateIris extends CommunicatePegacornSubsystem {
         DeploymentMapEndpointElement endpointIrisPetasosParcelSync = new DeploymentMapEndpointElement();
         endpointIrisPetasosParcelSync.setEndpointInstanceID("PetasosResilienceParcelSyncSvr");
         endpointIrisPetasosParcelSync.setEndpointFunctionID("PetasosResilienceParcelSyncSvr");
-        endpointIrisPetasosParcelSync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointIrisPetasosParcelSync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointIrisPetasosParcelSync.setExternalDNSEntry("petasos-gen0-iris");
         endpointIrisPetasosParcelSync.setExternalPortNumber("10872");
         endpointIrisPetasosParcelSync.setInternalPortNumber("10872");
@@ -142,7 +137,7 @@ public class CommunicateIris extends CommunicatePegacornSubsystem {
         DeploymentMapEndpointElement endpointIrisPetasosHeartbeatSync = new DeploymentMapEndpointElement();
         endpointIrisPetasosHeartbeatSync.setEndpointInstanceID("PetasosHeartbeatSvr");
         endpointIrisPetasosHeartbeatSync.setEndpointFunctionID("PetasosHeartbeatSvr");
-        endpointIrisPetasosHeartbeatSync.setEndpointType(EndpointElementTypeEnum.API);
+        endpointIrisPetasosHeartbeatSync.setEndpointType(EndpointElementTypeEnum.API_SERVER);
         endpointIrisPetasosHeartbeatSync.setExternalDNSEntry("petasos-gen0-iris");
         endpointIrisPetasosHeartbeatSync.setExternalPortNumber("10871");
         endpointIrisPetasosHeartbeatSync.setInternalPortNumber("10871");
