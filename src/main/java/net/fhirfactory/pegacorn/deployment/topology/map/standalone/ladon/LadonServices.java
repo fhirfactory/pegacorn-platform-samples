@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.fhirfactory.pegacorn.deployment.properties.PegacornCoreSubsystemComponentNames;
+import net.fhirfactory.pegacorn.deployment.names.PegacornLadonComponentNames;
 import net.fhirfactory.pegacorn.deployment.topology.map.archetypes.common.EdgeMessagingPortsCreator;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ConcurrencyModeEnum;
 import net.fhirfactory.pegacorn.petasos.model.resilience.mode.ResilienceModeEnum;
@@ -50,7 +50,7 @@ public class LadonServices extends LadonExternalisedServices {
 
     private static final String DEFAULT_VERSION = "1.0.0";
 
-    PegacornCoreSubsystemComponentNames subsystemComponentNames = new PegacornCoreSubsystemComponentNames();
+    PegacornLadonComponentNames subsystemComponentNames = new PegacornLadonComponentNames();
 
     @Override
     public void buildSubsystemNode(DeploymentMapNodeElement solutionNode) {

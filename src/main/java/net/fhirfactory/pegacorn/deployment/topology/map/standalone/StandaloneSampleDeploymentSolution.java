@@ -29,12 +29,8 @@ import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import net.fhirfactory.pegacorn.deployment.properties.PegacornCoreSubsystemComponentNames;
-import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateAVConfSvr;
-import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateEcho;
-import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateGrpSvr;
+import net.fhirfactory.pegacorn.deployment.names.PegacornLadonComponentNames;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateIris;
-import net.fhirfactory.pegacorn.deployment.topology.map.standalone.communicate.CommunicateVoIPBridge;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.fhirpit.FHIRPitServices;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.fhirplace.FHIRPlaceServices;
 import net.fhirfactory.pegacorn.deployment.topology.map.standalone.fhirview.FHIRViewServices;
@@ -62,7 +58,7 @@ public class StandaloneSampleDeploymentSolution extends SolutionDeploymentTopolo
 	private static String SOLUTION_NAME = "SampleStandaloneSolution";
 
 	@Inject
-	private PegacornCoreSubsystemComponentNames subsystemComponentNames;
+	private PegacornLadonComponentNames subsystemComponentNames;
 	
 	public StandaloneSampleDeploymentSolution() {
 		super();
