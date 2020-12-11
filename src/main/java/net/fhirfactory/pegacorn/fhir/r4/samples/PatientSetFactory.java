@@ -27,13 +27,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.hl7.fhir.r4.model.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ca.uhn.fhir.parser.IParser;
-import net.fhirfactory.pegacorn.util.FhirUtil;
+import net.fhirfactory.pegacorn.util.FHIRContextUtility;
 
 /**
  *
@@ -43,11 +44,14 @@ import net.fhirfactory.pegacorn.util.FhirUtil;
 public class PatientSetFactory {
     private static final Logger LOG = LoggerFactory.getLogger(PatientSetFactory.class);
 
+    @Inject
+    FHIRContextUtility fhirContextUtility;
+
     public Set<Patient> getPateintSet(){
         LOG.debug(".getPateintSet(): Entry");
         HashSet<Patient> patientSet = new HashSet<Patient>();
         LOG.trace(".getPateintSet(): Initialising Parser(s)");
-        IParser parserR4 = FhirUtil.getInstance().getJsonParser();
+        IParser parserR4 = fhirContextUtility.getJsonParser();
         LOG.trace(".getPatientSet(): Parser(s) initialised, now iterating through Patient Strings and creating Patient Resources");
         for(String currentPatientString: getPatientJSONStringSet()){
             Patient newPatient = (Patient)parserR4.parseResource(currentPatientString);

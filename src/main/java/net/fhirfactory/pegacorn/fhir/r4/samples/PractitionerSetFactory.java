@@ -26,13 +26,13 @@ package net.fhirfactory.pegacorn.fhir.r4.samples;
 import java.util.HashSet;
 import java.util.Set;
 
-import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
-import net.fhirfactory.pegacorn.util.FhirUtil;
+import net.fhirfactory.pegacorn.util.FHIRContextUtility;
 
 import org.hl7.fhir.r4.model.Practitioner;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 /**
  *
@@ -41,9 +41,12 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class PractitionerSetFactory {
 
+    @Inject
+    FHIRContextUtility fhirContextUtility;
+
     public Set<Practitioner> getPractitionerSet(){
         HashSet<Practitioner> practitionerSet = new HashSet<Practitioner>();
-        IParser parserR4 = FhirUtil.getInstance().getJsonParser();
+        IParser parserR4 = fhirContextUtility.getJsonParser();
         for(String currentPractitionerString: getPractitionerJSONStringSet()){
             Practitioner newPractitioner = (Practitioner)parserR4.parseResource(currentPractitionerString);
             practitionerSet.add(newPractitioner);
